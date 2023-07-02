@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task Timer</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+    <link rel="manifest" href="manifest.json">
+</head>
+<body onload='loadup()'>
+
+    <center><input type="button" onclick="userAddTimer()" value="Dodaj Timer"></center>
+    <br>
+
+    Reset interval: <select id="form_timer_reset_interval">
+        <option value="" selected disabled hidden>choose</option>
+        <option value="daily">Daily</option>
+        <option value="weekly">Weekly</option>
+        <option value="monthly">Monthly</option>
+    </select>
+    <br>
+
+    Name: <input type="text" id="form_timer_name" maxlength="20">
+    <br>
+
+    Duration: <input type="time" id="form_timer_duration">
+
+    <hr>
+    <div id="timers_drawer">
+        <!--div class='timer_container_1' id='0'>
+
+            <div class='timer_container_2a' >
+                <div class="pause_button" onclick="pauseResume(ID)"></div>
+            </div>
+
+            <div class='timer_container_2b'>
+                NAME OF TIMER XXÓXXXX - 00:00<br>
+                <div class="progressbar_wrapper">
+
+                    <div class="progressbar_outer">
+                        <div class="progressbar_inner" ></div>
+                    </div>
+
+                    <div class="delete_timer" onclick="userRemoveTimer(ID)"></div>
+                </div>
+            </div>
+
+        </div-->
+    </div>
+</body>
+</html>

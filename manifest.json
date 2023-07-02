@@ -1,0 +1,6 @@
+{
+    "name": "Tasks Timer",
+    "start_url": "/",
+    
+    "display": "standalone"
+  }
