@@ -133,7 +133,7 @@ function renderTimers() {
                     "<div class='pause_button' onclick='pauseResume("+ timer_id +")'></div>"+
                 "</div>"+
                 "<div class='timer_container_2b'>"+
-                    all_timers_table[i][0] +" - "+ all_timers_table[i][2] +"<br>"+
+                    "<div id='timer_time_"+ timer_id +"'>"+ all_timers_table[timer_id][0] +" - "+ all_timers_table[timer_id][2] +"</div>"+
                     "<div class='progressbar_wrapper'>"+
                         "<div class='progressbar_outer'>"+
                     "<div class='progressbar_inner' id='progressbar_inner_"+ timer_id +"'></div>"+
