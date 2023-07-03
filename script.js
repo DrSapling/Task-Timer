@@ -9,11 +9,61 @@ order of items in "all_timers_table":
     5: state(resumed - true / paused - false)
 */
 
+function pauseResume(ID) {
+    switch (all_timers_table[ID][5]) {
+        case false:
+            all_timers_table[ID][5] = true;
+            break;
+        
+        case true:
+            all_timers_table[ID][5] = false;
+            break;
+
+        default:
+            alert("Something went wrong (pauseResume)");
+    }
+}
+
+function updateTimers() {
+    if (all_timers_table.length > 0) {
+        for (var timer_id = 0; timer_id <= all_timers_table.length-1; timer_id++) {
+            if (all_timers_table[timer_id][4] == all_timers_table[timer_id][3]) {
+                all_timers_table[timer_id][5] = false;
+                all_timers_table[timer_id][4] = 0;
+                document.getElementById('progressbar_inner_'+timer_id).style.width = "100%";
+                saveTimersToCookie();
+            }
+            if (all_timers_table[timer_id][5] == true) {
+                all_timers_table[timer_id][4]++;
+                var progress_bar_percentage = parseFloat((1 - (all_timers_table[timer_id][4] / all_timers_table[timer_id][3])) * 100);
+                document.getElementById('progressbar_inner_'+timer_id).style.width = ""+ progress_bar_percentage +"%";
+                saveTimersToCookie();
+            }
+        }
+    }
+    else {
+        
+    }
+    
+}
+
 
 
 function loadup() {
     if (document.cookie.length > 0) {
         all_timers_table = JSON.parse(document.cookie);
+        if (all_timers_table.length > 0) {
+            for (var timer_id = 0; timer_id <= all_timers_table.length-1; timer_id++) {
+                all_timers_table[timer_id][5] = false;
+            }
+        }
+        renderTimers();
+        if (all_timers_table.length > 0) {
+            for (var timer_id = 0; timer_id <= all_timers_table.length-1; timer_id++) {
+                var progress_bar_percentage = parseFloat((1 - (all_timers_table[timer_id][4] / all_timers_table[timer_id]       [3])) * 100);
+                document.getElementById('progressbar_inner_'+timer_id).style.width = ""+ progress_bar_percentage +"%";
+            }
+        }
     }
 }
 
@@ -86,7 +136,7 @@ function renderTimers() {
                     all_timers_table[i][0] +" - "+ all_timers_table[i][2] +"<br>"+
                     "<div class='progressbar_wrapper'>"+
                         "<div class='progressbar_outer'>"+
-                            "<div class='progressbar_inner' ></div>"+
+                    "<div class='progressbar_inner' id='progressbar_inner_"+ timer_id +"'></div>"+
                         "</div>"+
                         "<div class='delete_timer' onclick='userRemoveTimer("+ timer_id +")'></div>"+
                     "</div>"+
