@@ -1,13 +1,21 @@
 var all_timers_table = [];
+/*
+order of items in "all_timers_table":
+    0: name
+    1: reset interval
+    2: duration
+    3: duration in seconts
+    4: elapsed time in seconds
+    5: state(resumed - true / paused - false)
+*/
+
 
 
 function loadup() {
     if (document.cookie.length > 0) {
         all_timers_table = JSON.parse(document.cookie);
-        renderTimers("");
     }
 }
-
 
 function userAddTimer() {
     var INPUT_timer_reset_interval = document.getElementById("form_timer_reset_interval").value;
@@ -26,17 +34,15 @@ function userAddTimer() {
 
     else {
         addTimerToTable(INPUT_timer_name, INPUT_timer_reset_interval, INPUT_timer_duration);
-        renderTimers("");
+        renderTimers();
     }
 }
 
-
 function userRemoveTimer(ID) {
     all_timers_table.splice(ID, 1);
-    renderTimers("");
+    renderTimers();
     saveTimersToCookie();
 }
-
 
 function addTimerToTable(NAME, RESET_INTERVAL, DURATION) {
 
@@ -56,23 +62,25 @@ function addTimerToTable(NAME, RESET_INTERVAL, DURATION) {
             }
         }
         // last 0 is elapsed time | boolean is resumed(true) / paused(false)
-        all_timers_table[all_timers_table.length] = [NAME, RESET_INTERVAL, DURATION, duration_in_seconds, 0, flase];
+        all_timers_table[all_timers_table.length] = [NAME, RESET_INTERVAL, DURATION, duration_in_seconds, 0, false];
     }
     else {
         // last 0 is elapsed time | boolean is resumed(true) / paused(false)
-        all_timers_table[all_timers_table.length] = [NAME, RESET_INTERVAL, DURATION, duration_in_seconds, 0, flase];
+        all_timers_table[all_timers_table.length] = [NAME, RESET_INTERVAL, DURATION, duration_in_seconds, 0, false];
     }
     saveTimersToCookie();
 }
 
-
-function renderTimers(MODE) {
-    if (MODE == "" & all_timers_table.length > 0) {
+function renderTimers() {
+    if (all_timers_table.length > 0) {
         var string_to_add = "";
-        for (var i = 0; i <= all_timers_table.length-1; i++) {
-            string_to_add += "<div class='timer_container_1' id='"+ i +"'>"+
+        for (var timer_id = 0; timer_id <= all_timers_table.length-1; timer_id++) {
+
+            
+
+            string_to_add += "<div class='timer_container_1' id='"+ timer_id +"'>"+
                 "<div class='timer_container_2a' >"+
-                    "<div class='pause_button' onclick='pauseResume("+ i +")'></div>"+
+                    "<div class='pause_button' onclick='pauseResume("+ timer_id +")'></div>"+
                 "</div>"+
                 "<div class='timer_container_2b'>"+
                     all_timers_table[i][0] +" - "+ all_timers_table[i][2] +"<br>"+
@@ -80,7 +88,7 @@ function renderTimers(MODE) {
                         "<div class='progressbar_outer'>"+
                             "<div class='progressbar_inner' ></div>"+
                         "</div>"+
-                        "<div class='delete_timer' onclick='userRemoveTimer("+ i +")'></div>"+
+                        "<div class='delete_timer' onclick='userRemoveTimer("+ timer_id +")'></div>"+
                     "</div>"+
                 "</div>"+
             "</div>";
@@ -93,7 +101,11 @@ function renderTimers(MODE) {
     }
 }
 
-
 function saveTimersToCookie() {
     document.cookie = JSON.stringify(all_timers_table);
 }
+
+
+
+
+const updateTimers_loop = setInterval(updateTimers, 1000);
