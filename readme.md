@@ -10,4 +10,4 @@ This is a working in-development prototype of a timer for daily/weekly/monthly t
 
 Jest to działający prototyp czasomierza do zadań dziennych/tygodniowych/miesięcznych. Pomoże ci śledzić rutynowe zadania i skupić się na zarządzaniu czasem.
 
-[tasktimer.kolpaki.net](tasktimer.kolpaki.net)
+[tasktimer.kolpaki.net](https://tasktimer.kolpaki.net)
