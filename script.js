@@ -51,7 +51,7 @@ function updateTimers() {
 
 function loadup() {
     if (document.cookie.length > 0) {
-        all_timers_table = JSON.parse(document.cookie);
+        all_timers_table = JSON.parse((document.cookie.split("; "))[0]);
         if (all_timers_table.length > 0) {
             for (var timer_id = 0; timer_id <= all_timers_table.length-1; timer_id++) {
                 all_timers_table[timer_id][5] = false;
@@ -152,7 +152,7 @@ function renderTimers() {
 }
 
 function saveTimersToCookie() {
-    document.cookie = JSON.stringify(all_timers_table);
+    document.cookie = JSON.stringify(all_timers_table) + "; expires=Fri, 31 Dec 9999 23:59:59 GMT";
 }
 
 
